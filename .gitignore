@@ -25,8 +25,12 @@
 *.la
 *.a
 *.lib
+*.class
 
 # Executables
 *.exe
 *.out
 *.app
+
+# OSX
+.DS_Store
