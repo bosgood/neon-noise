@@ -1,5 +1,7 @@
-int cellSize = 4;
+int cellSize = 16;
 int tick = 0;
+
+ArrayList<PVector> points = new ArrayList<PVector>();
 
 void setup() {
   size(1024, 768);
@@ -15,6 +17,42 @@ void draw() {
     }
   }
   tick = (tick + 1);
+
+  drawCursor();
+  drawLegend();
+  drawPoints();
+}
+
+// Records mouse click locations
+void mouseClicked() {
+  points.add(new PVector(mouseX, mouseY));
+  System.out.println("(" + mouseX + ", " + mouseY + ")");
+}
+
+void drawPoints() {
+  noFill();
+  strokeWeight(1);
+  stroke(color(0, 0, 0));
+  for (int i = 0; i < points.size(); i++) {
+    ellipse(points.get(i).x, points.get(i).y, 10, 10);
+  }
+}
+
+void drawCursor() {
+  noFill();
+  stroke(color(0, 0, 0));
+  strokeWeight(1);
+  // Crosshairs
+  line(mouseX, mouseY + 10, mouseX, mouseY + 25);
+  line(mouseX, mouseY - 10, mouseX, mouseY - 25);
+  line(mouseX + 10, mouseY, mouseX + 25, mouseY);
+  line(mouseX - 10, mouseY, mouseX - 25, mouseY);
+}
+
+void drawLegend() {
+  textSize(16);
+  fill(color(0, 0, 0));
+  text("(" + mouseX + ", " + mouseY + ") " + points.size() + " point(s) chosen", 25, 25);
 }
 
 void drawCell(int i, int j) {
